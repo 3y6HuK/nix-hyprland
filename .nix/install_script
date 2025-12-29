@@ -1,0 +1,38 @@
+#This cheat sheet is designed for easier markup and installation of NixOS using nested configs. The first command declaratively divides the disk space on a separate medium into the BTRFS file system. You can fix the details in the disko.nix file.
+
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount ./disko.nix
+
+sudo -i
+
+#Creation of basic system configs and installation in /mnt.
+
+nixos-generate-config --root /mnt && nixos-install
+
+When 1st generegion NixOS will be complete, boot it and 
+RUN replace-username.sh before rebuilding system with these config and copy the file here:
+
+cd nix-hyprland/.nix && /etc/profiles/per-user/username/bin/bash replace-username.sh
+
+cp /etc/nixos/hardware-configuration.nix .
+
+#Note that in the configuration.nix file, you can specify the mount options for the root partition and mount the /home directory if it is located on another partition. Don't forget to find out the UUID of the partition using the lsblk -f command.
+
+#Next, you need to switch the channels to unstable ones. This is necessary for the Hyprland window manager.
+
+nix-channel --add https://nixos.org/channels/nixos-unstable nixos
+
+nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+
+nix-channel --update
+
+sudo nixos-rebuild switch --upgrade --flake ./
+
+If Yandex Browser needed
+
+nix profile install github:miuirussia/yandex-browser.nix#yandex-browser-stable  
+
+nix flake lock --update-input yandex-browser  
+
+sudo nixos-rebuild switch --upgrade --flake ./
+
+#Perhaps my aliases for "fish" will help you. You can look at them in .config/fish/system.fish.
