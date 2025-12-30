@@ -280,7 +280,16 @@
   thunar-archive-plugin
   thunar-volman
   ];
-  
+
+    #VSCode
+  programs.vscode = {
+    enable = true;
+    extensions = with pkgs.vscode-extensions; [
+      # Другие расширения
+      enkia.tokyo-night  # Пример тем
+      ms-ceintl.vscode-language-pack-ru
+    ];
+ 
   #Virtmanager
   # Включение KVM/QEMU
   virtualisation.libvirtd.enable = true;
@@ -301,7 +310,7 @@
       wlrobs
     ];
   })
-    appimage-run
+   appimage-run
     appimageupdate
     ast-grep
     btop
@@ -311,6 +320,7 @@
     brightnessctl
     btrfs-progs
     cherrytree
+    dconf
     devenv
     discord
     dnscrypt-proxy
@@ -324,7 +334,9 @@
     gparted
     gcc
     gedit
+    glib
     git
+    gsettings-desktop-schemas
     hyprcursor
     hypridle
     hyprland-autoname-workspaces
@@ -337,6 +349,7 @@
     hyprsunset
     hyprutils
     imagemagick
+    jdk
     kitty
     lazygit
     libreoffice
@@ -347,14 +360,18 @@
     mangohud
     mc
     mermaid-cli
+    maven
     neovim
     nemo-fileroller
     nerd-fonts.jetbrains-mono
+    nerd-fonts.ubuntu
     networkmanagerapplet
     nodejs
     nwg-look
     noto-fonts-emoji-blob-bin
     oh-my-fish
+    openjdk
+    pamixer
     pavucontrol
     p7zip
     p7zip-rar
@@ -367,6 +384,7 @@
     ripgrep-all
     steam
     stylua
+    swww
     swappy
     tectonic
     telegram-desktop
@@ -389,7 +407,7 @@
     xdg-desktop-portal-hyprland
     xdg-user-dirs
     yt-dlp
-    
+     
   ];
 
     # Some programs need SUID wrappers, can be configured further or are
