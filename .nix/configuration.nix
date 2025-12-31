@@ -310,7 +310,7 @@
       wlrobs
     ];
   })
-   appimage-run
+     appimage-run
     appimageupdate
     ast-grep
     btop
@@ -336,6 +336,7 @@
     gedit
     glib
     git
+    grim
     gsettings-desktop-schemas
     hyprcursor
     hypridle
@@ -345,7 +346,6 @@
     hyprlock
     hyprpaper
     hyprpicker
-    hyprshot
     hyprsunset
     hyprutils
     imagemagick
@@ -382,6 +382,7 @@
     qbittorrent
     ripgrep
     ripgrep-all
+    slurp
     steam
     stylua
     swww
@@ -407,7 +408,6 @@
     xdg-desktop-portal-hyprland
     xdg-user-dirs
     yt-dlp
-     
   ];
 
     # Some programs need SUID wrappers, can be configured further or are
