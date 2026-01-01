@@ -12,23 +12,27 @@
     ];
 
   # Use the systemd-boot EFI boot loader.
-  #boot.loader.systemd-boot.enable = true;
-  #boot.loader.efi.canTouchEfiVariables = true;
-
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.timeout = 0;
+  
   boot.supportedFilesystems = [ "ntfs" ];
 
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
-    grub = {
-      enable = true;
-      devices = [ "nodev" ];
-      efiSupport = true;
-      useOSProber = true;
-      extraConfig = ''
-       set timeout=1
-       '';
-    };
-  };
+  #boot.loader = {
+  #  efi.canTouchEfiVariables = true;
+  #  grub = {
+  #    enable = true;
+  #    devices = [ "nodev" ];
+  #    efiSupport = true;
+  #    useOSProber = true;
+  #    theme = "/home/username/.themes/nixos";
+  #    gfxmodeEfi = "1920x1080";
+  #    backgroundColor = "#1B3E7E";
+  #    extraConfig = ''
+  #     set timeout=1
+  #     '';
+  #  };
+  #};
 
  fileSystems."/" =
     { options = [
