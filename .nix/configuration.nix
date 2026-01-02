@@ -15,7 +15,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 0;
-  
+
   boot.supportedFilesystems = [ "ntfs" ];
 
   #boot.loader = {
@@ -45,13 +45,11 @@
 
     };
 
-	#Mounting /home
-
-#  fileSystems."/home" =
-#    { device = "/dev/disk/by-uuid/your_uuid";
-#      fsType = "btrfs";
-#      options = [ "noatime" "discard=async" "ssd" "compress=zstd:3" "space_cache=v2" ];
-#    };
+  fileSystems."/home" =
+    { device = "/dev/disk/by-uuid/4b584ac1-1078-474d-a999-b1b9de42d9a4";
+      fsType = "btrfs";
+      options = [ "noatime" "discard=async" "ssd" "compress=zstd:3" "space_cache=v2" ];
+    };
 
 
   #time.hardwareClockInLocalTime = true;
@@ -183,6 +181,8 @@
     #GDK_SCALE = "2";  # HiDpi для GTK‑приложений
     #QT_SCALE_FACTOR = "2";  # HiDpi для Qt‑приложений
     XDG_CURRENT_DESKTOP = "Hyprland";
+    DESKTOP_SESSION = "hyprland";
+    XDG_SESSION_TYPE = "wayland";
     WLR_NO_HARDWARE_CURSORS = "1";
   };
 
@@ -190,11 +190,12 @@
   system.autoUpgrade = {
     enable = true;
     flake = "/home/username/.nix";
-    dates = "20:00";
+    dates = "19:30";
     randomizedDelaySec = "45min";
     flags = [ "--print-build-logs" ];
     allowReboot = false;
   };
+
   #Автоочистка
   nix.gc = {
     automatic = true;
@@ -220,16 +221,11 @@
     };
   };
 
+  #Flatpak
+  #services.flatpak.enable = true;
+
   # Enable CUPS to print documents.
   # services.printing.enable = true;
-
-  # Enable sound.
-  # services.pulseaudio.enable = true;
-  # OR
-  #services.pipewire = {
-   # enable = true;
-    #pulse.enable = true;
-  #};
 
   security.rtkit.enable = true;
   services.pipewire = {
@@ -242,12 +238,12 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with \u2018passwd\u2019.
+  # Define a user account. Don't forget to set a password with .
   #Autologin
   services.getty.autologinUser = "username";
   users.users.username = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "input" "networkmanager" "libvirtd" ]; # Enable \u2018sudo\u2019 for the user.
+    extraGroups = [ "wheel" "input" "audio" "video" "networkmanager" "libvirtd" ]; # Enable for the user.
     packages = with pkgs; [];
   };
 
@@ -280,11 +276,7 @@
   programs.fish.enable = true; 
   programs.firefox.enable = true; # Firefox
   programs.thunar.enable = true; # Thunar
-  programs.thunar.plugins = with pkgs.xfce; [
-  thunar-archive-plugin
-  thunar-volman
-  ];
-
+ 
     #VSCode
   programs.vscode = {
     enable = true;
@@ -293,15 +285,21 @@
       enkia.tokyo-night  # Пример тем
       ms-ceintl.vscode-language-pack-ru
     ];
- 
+  };
+
   #Virtmanager
   # Включение KVM/QEMU
   virtualisation.libvirtd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
+  virtualisation.libvirtd.qemu.vhostUserPackages = with pkgs; [ virtiofsd ];
+  services.qemuGuest.enable = true;
+  services.spice-vdagentd.enable = true;
+  services.spice-autorandr.enable = true;
   programs.virt-manager = {
     enable = true;
     package = pkgs.virt-manager;
   };
-  
+ 
     nixpkgs.config.allowUnfree = true;
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
@@ -314,7 +312,7 @@
       wlrobs
     ];
   })
-     appimage-run
+    appimage-run
     appimageupdate
     ast-grep
     btop
@@ -365,6 +363,7 @@
     mc
     mermaid-cli
     maven
+    mpv
     neovim
     nemo-fileroller
     nerd-fonts.jetbrains-mono
@@ -373,6 +372,7 @@
     nodejs
     nwg-look
     noto-fonts-emoji-blob-bin
+    obsidian
     oh-my-fish
     openjdk
     pamixer
@@ -393,9 +393,12 @@
     swappy
     tectonic
     telegram-desktop
+    thunar-archive-plugin
+    thunar-volman
     thunderbird
     trash-cli
     unzip
+    vlc
     vivaldi
     vivaldi-ffmpeg-codecs
     virtualenv
