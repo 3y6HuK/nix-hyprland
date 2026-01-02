@@ -24,6 +24,7 @@ alias v='nvim'
 alias sv='sudo nvim'
 alias lu='lwrun --update'
 alias search='nix search nixpkgs'
+alias yarep='nix profile install github:miuirussia/yandex-browser.nix#yandex-browser-stable'
 
 # Очистка терминала
 alias c='clear'

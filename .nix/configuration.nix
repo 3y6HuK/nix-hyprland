@@ -190,9 +190,8 @@
   system.autoUpgrade = {
     enable = true;
     flake = "/home/username/.nix";
-    dates = "19:30";
-    randomizedDelaySec = "45min";
-    flags = [ "--print-build-logs" ];
+    dates = "daily";
+    flags = [ "--recreate-lock-file" ];
     allowReboot = false;
   };
 
