@@ -21,7 +21,7 @@
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
-            users.freedomsky = import ./home.nix;
+            users.username = import ./home.nix;
             backupFileExtension = "backup";
           };
         }

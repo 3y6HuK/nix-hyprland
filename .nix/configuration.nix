@@ -36,17 +36,17 @@
 
  fileSystems."/" =
     { options = [
-	      "noatime"
-	      "space_cache=v2"
-        "compress=zstd:3"
-	      "ssd"
-	      "discard=async"
+    	"noatime"
+	"space_cache=v2"
+        "compress=zstd:1"
+	"ssd"
+	"discard=async"
       ];
 
     };
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/4b584ac1-1078-474d-a999-b1b9de42d9a4";
+    { device = "/dev/disk/by-uuid/your-uuid";
       fsType = "btrfs";
       options = [ "noatime" "discard=async" "ssd" "compress=zstd:3" "space_cache=v2" ];
     };
