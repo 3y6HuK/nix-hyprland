@@ -11,7 +11,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, zapret-discord-youtube, ... }: {
+  outputs = { self, nixpkgs, home-manager, zapret-discord-youtube, yandex-browser, ... }: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
@@ -27,7 +27,7 @@
         }
       
         zapret-discord-youtube.nixosModules.default
-        {
+        ({ pkgs, ... }: {  # ← ПЕРЕДАЁМ pkgs И system
           services.zapret-discord-youtube = {
             enable = true;
 #            config = "general";
@@ -50,16 +50,25 @@
 #            config ="general (FAKE_TLS_AUTO_ALT)";
 #            config ="general (FAKE_TLS_AUTO_ALT2)";
 #            config ="general (FAKE_TLS_AUTO_ALT3)";
-           #config = "general (FAKE_TLS_AUTO_ALT3)";  # Или любой конфиг из папки configs (general, general(ALT), general (SIMPLE FAKE) и т.д.)
           };
-        }
-
+          
+          # Yandex Browser - правильный способ
+          nixpkgs.overlays = [
+            (final: prev: {
+              yandex-browser-stable = yandex-browser.packages.x86_64-linux.yandex-browser-stable;
+            })
+          ];
+          environment.systemPackages = with pkgs; [
+            yandex-browser-stable
+          ];
+        })
       ];
     };
   };
 }
 
+
     # Пропиши в терминале, если только систему поставил:
     # nix profile install github:miuirussia/yandex-browser.nix#yandex-browser-stable  
-    # nix flake lock --update-input yandex-browser  
+    # nix flake update yandex-browser  
 
