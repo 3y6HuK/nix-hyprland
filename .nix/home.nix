@@ -25,11 +25,13 @@
       rb = "sudo nixos-rebuild switch --flake /home/username/.nix";
       up = "sudo nixos-rebuild switch --upgrade --flake /home/username/.nix";
     };
-    profileExtra = ''
-      if [ -z "$WAYLAND_DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
-        export XDG_CURRENT_DESKTOP=Hyprland
-        exec uwsm start hyprland-uwsm.desktop
-      fi
-    '';
+     profileExtra = ''
+     if [ -z "$WAYLAND_DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
+       export XDG_CURRENT_DESKTOP=Hyprland
+       export XDG_SESSION_DESKTOP=Hyprland
+       export XDG_SESSION_TYPE=wayland
+       exec start-hyprland
+     fi
+     ''; 
   };
 }

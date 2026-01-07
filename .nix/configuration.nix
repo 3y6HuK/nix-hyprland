@@ -35,18 +35,13 @@
   #};
 
  fileSystems."/" =
-    { options = [
-    	"noatime"
-	"space_cache=v2"
-        "compress=zstd:1"
-	"ssd"
-	"discard=async"
-      ];
-
+    { 
+      options = [ "noatime" "space_cache=v2" "compress=zstd:1" "ssd" "discard=async" ];
     };
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/your-uuid";
+    { 
+      device = "/dev/disk/by-uuid/your-uuid";
       fsType = "btrfs";
       options = [ "noatime" "discard=async" "ssd" "compress=zstd:3" "space_cache=v2" ];
     };
@@ -158,7 +153,6 @@
   #Hyprland
   programs.hyprland = {
     enable = true;
-    withUWSM = true; # recommended for most users
     xwayland.enable = true; # Xwayland can be disabled.
   };
   # XDG Portal.

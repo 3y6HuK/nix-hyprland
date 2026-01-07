@@ -25,6 +25,7 @@ alias sv='sudo nvim'
 alias lu='lwrun --update'
 alias search='nix search nixpkgs'
 alias yarep='nix profile install github:miuirussia/yandex-browser.nix#yandex-browser-stable'
+alias clst='sudo nix store gc'
 
 # Очистка терминала
 alias c='clear'
@@ -32,7 +33,7 @@ alias c='clear'
 # Обновление системы
 
 alias flup='nix flake update ~/.nix'
-alias up='sudo nixos-rebuild switch --upgrade --flake ~/.nix'
+alias up='sudo nix-channel --update && sudo nixos-rebuild switch --upgrade --flake ~/.nix'
 alias rb='sudo nixos-rebuild switch --flake ~/.nix'
 
 #Для VPN torctl (ставится из репозитория blackarch)
