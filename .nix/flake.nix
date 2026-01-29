@@ -27,7 +27,7 @@
         }
       
         zapret-discord-youtube.nixosModules.default
-        ({ pkgs, ... }: {  # ← ПЕРЕДАЁМ pkgs И system
+        ({ pkgs, ... }: {
           services.zapret-discord-youtube = {
             enable = true;
 #            config = "general";
@@ -52,7 +52,6 @@
 #            config ="general (FAKE_TLS_AUTO_ALT3)";
           };
           
-          # Yandex Browser - правильный способ
           nixpkgs.overlays = [
             (final: prev: {
               yandex-browser-stable = yandex-browser.packages.x86_64-linux.yandex-browser-stable;
